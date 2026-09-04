@@ -19,4 +19,9 @@
 4. Ver elementos relacionados
 5. Ver Top N mejores elementos
 
-## Ejemplo de interacción (boceto de consola) (Poné un ejemplo de cómo se vería la pantalla cuando el usuario usa el programa) ## Diagrama inicial de clases (Hacé un diagrama simple, a mano o digital, con las clases principales) 
+## Ejemplo de interacción 
+(boceto de consola) 
+(Poné un ejemplo de cómo se vería la pantalla cuando el usuario usa el programa) 
+
+## Diagrama inicial de clases 
+(Hacé un diagrama simple, a mano o digital, con las clases principales) 

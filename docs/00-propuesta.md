@@ -3,8 +3,7 @@
 ## 1. Datos del Proyecto
 * **Nombre del Proyecto:** SoundNode
 * **Dominio Elegido:** Música (Canciones, Artistas, Géneros y Puntuaciones)
-* **Integrantes:** Gustavo Ojeda, Natanael y equipo (3 integrantes)
-
+* **Integrantes:** Gustavo Ojeda, Natanael Contardo Ceriani, Julian Ttito
 ---
 
 ## 2. Definición del Dominio y Problema

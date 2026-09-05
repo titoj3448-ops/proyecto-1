@@ -1,15 +1,10 @@
 class Cancion:
-    def __init__(self, id_cancion: int, titulo: str, artista: str, genero: str, duracion: str, puntuacion: float):
-        self._id = id_cancion
+    def __init__(self, titulo: str, artista: str, genero: str, duracion: str, puntuacion: float):
         self._titulo = titulo
         self._artista = artista
         self._genero = genero
         self._duracion = duracion
         self._puntuacion = puntuacion
-
-    @property
-    def id(self):
-        return self._id
 
     @property
     def titulo(self):
@@ -32,4 +27,4 @@ class Cancion:
         return self._puntuacion
 
     def __repr__(self):
-        return f"[{self._id:02d}] '{self._titulo}' - {self._artista} ({self._genero}) ⭐{self._puntuacion}"
+        return f"'{self._titulo}' - {self._artista} ({self._genero}) [{self._duracion}] ⭐{self._puntuacion}"

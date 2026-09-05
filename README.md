@@ -1,36 +1,42 @@
-# 🎵 SoundNode — Sistema de Recomendaciones de Música
+# SoundNode
 
-> **Estructura de Datos 2026** — Trabajo Práctico Integrador  
-> **Universidad Nacional de Almirante Brown (UNAB)**
+Sistema de recomendaciones de música en terminal.
 
----
+## Integrantes
+- Gustavo Abel Ojeda
+- Natanael Contardo Ceriani
+- Julian Ttito
 
-## 📌 Descripción del Proyecto
+## Cómo ejecutar
+1. Clonar el repositorio
+2. Ejecutar: py ui/terminal.py
 
-**SoundNode** es una aplicación de terminal desarrollada en Python que permite almacenar, buscar, filtrar y recomendar canciones a partir de relaciones de género, artistas y calificaciones.
+## Estado
+TP0: Completado
+TP1: Completado
 
-El objetivo principal es aplicar estructuras de datos fundamentales (listas, árboles binarios, AVL, árboles generales, heaps y grafos) para optimizar la gestión y las consultas dentro de un dataset musical real.
+# 📝 Historial de Cambios y Decisiones de Arquitectura — SoundNode
 
----
-
-## 🚀 Características y Funcionalidades (TP1)
-
-- **POO / Encapsulamiento:** Representación del dominio mediante la clase `Cancion` con atributos protegidos.
-- **Carga desde JSON:** Persistencia e importación de canciones desde archivo `canciones.json`.
-- **Búsqueda eficiente:** Búsqueda secuencial por título de canción o artista.
-- **Filtrado por género:** Filtro dinámico de temas según su estilo musical.
-- **Rankings:** Obtención del Top de canciones mejor valoradas.
-- **Interfaz de consola:** Menú interactivo CLI usable por cualquier usuario.
+Este documento registra la evolución del proyecto, los cambios de estructura realizados y la justificación técnica de cada decisión tomada para facilitar el mantenimiento futuro del código.
 
 ---
 
-## 📂 Estructura del Repositorio
+## 📅 Versión 1.0.0 — Entrega 1 (TP0 + TP1) — Septiembre 2026
 
-```text
-proyecto-1/
-├── 00-propuesta.md     # Documento de propuesta inicial y diagrama UML (TP0)
-├── README.md           # Descripción e instrucciones de ejecución
-├── canciones.json      # Dataset en formato JSON
-├── cancion.py          # Clase del modelo de dominio (POO)
-├── catalogo.py         # Lógica de almacenamiento, búsqueda y filtrado
-└── main.py             # Punto de entrada y menú en consola (CLI)
+### 1. Reestructuración de Directorios
+* **Cambio:** Se organizó el código suelto de la raíz en módulos específicos (`modelos/`, `datos/`, `ui/`, `docs/`).
+* **Motivo:** Cumplir con la arquitectura por capas solicitada por la cátedra y separar la interfaz de usuario de la lógica de negocio y los datos.
+
+### 2. Migración a Persistencia JSON
+* **Cambio:** Se reemplazó la importación estática desde `base_de_datos.py` por la lectura dinámica de `datos/canciones.json`.
+* **Motivo:** Permitir que la base de datos de canciones crezca de forma independiente al código ejecutable de Python, facilitando la adición de nuevo contenido sin tocar la lógica del programa.
+
+### 3. Encapsulamiento del Modelo `Cancion`
+* **Cambio:** Se redefinieron los atributos de la clase `Cancion` en `modelos/cancion.py` utilizando prefijos `_` y decoradores `@property`.
+* **Motivo:** Proteger el estado interno de los objetos y asegurar que las lecturas de atributos como `titulo`, `artista`, `duracion` y `puntuacion` se hagan de forma controlada.
+
+### 4. Modularización de la Interfaz CLI
+* **Cambio:** Se implementó `ui/terminal.py` para gestionar el menú interactivo, incorporando búsquedas independientes por título y por artista, filtrado por género y listado general.
+* **Motivo:** Proveer una experiencia de usuario contextualizada al dominio musical y dejar aislada la entrada/salida de datos para futuras adaptaciones (ej: interfaz gráfica o web).
+
+---

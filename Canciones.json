@@ -1,0 +1,12 @@
+[
+  {"id": 1, "titulo": "Blinding Lights", "artista": "The Weeknd", "genero": "Synth-pop", "duracion": "3:20", "puntuacion": 9.5},
+  {"id": 2, "titulo": "Shape of You", "artista": "Ed Sheeran", "genero": "Pop", "duracion": "3:53", "puntuacion": 9.0},
+  {"id": 3, "titulo": "Smells Like Teen Spirit", "artista": "Nirvana", "genero": "Grunge", "duracion": "5:01", "puntuacion": 9.8},
+  {"id": 4, "titulo": "Billie Jean", "artista": "Michael Jackson", "genero": "Pop", "duracion": "4:54", "puntuacion": 9.7},
+  {"id": 5, "titulo": "Bohemian Rhapsody", "artista": "Queen", "genero": "Rock", "duracion": "5:55", "puntuacion": 10.0},
+  {"id": 6, "titulo": "De Música Ligera", "artista": "Soda Stereo", "genero": "Rock argentino", "duracion": "5:01", "puntuacion": 10.0},
+  {"id": 7, "titulo": "Persiana Americana", "artista": "Soda Stereo", "genero": "Rock argentino", "duracion": "5:29", "puntuacion": 9.7},
+  {"id": 8, "titulo": "Ji ji ji", "artista": "Patricio Rey y sus Redonditos de Ricota", "genero": "Rock argentino", "duracion": "5:35", "puntuacion": 9.5},
+  {"id": 9, "titulo": "Crimen", "artista": "Gustavo Cerati", "genero": "Rock argentino", "duracion": "4:26", "puntuacion": 9.4},
+  {"id": 10, "titulo": "Flaca", "artista": "Andrés Calamaro", "genero": "Rock argentino", "duracion": "4:36", "puntuacion": 9.0}
+]

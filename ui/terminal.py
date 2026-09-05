@@ -59,7 +59,7 @@ def listar(canciones):
         print(f"{i}. {c}")
 
 def filtrar(canciones):
-    genero = input("Género musical (ej: Rock, Pop, Grunge): ").lower()
+    genero = input("Género musical (ej: Rock, Pop, Grunge, jazz, salsa, relajante, blues): ").lower()
     encontrados = False
     for c in canciones:
         if genero in c.genero.lower():

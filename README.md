@@ -39,4 +39,15 @@ Este documento registra la evolución del proyecto, los cambios de estructura re
 * **Cambio:** Se implementó `ui/terminal.py` para gestionar el menú interactivo, incorporando búsquedas independientes por título y por artista, filtrado por género y listado general.
 * **Motivo:** Proveer una experiencia de usuario contextualizada al dominio musical y dejar aislada la entrada/salida de datos para futuras adaptaciones (ej: interfaz gráfica o web).
 
+### 5. Corrección de Compatibilidad de Sistema de Archivos y Módulos (Windows)
+* **Cambio:** Se renombraron los directorios `algoritmo ` y `estructuras ` (eliminando espacios al final de los nombres de carpeta), se reubicó `arbol_binario.py` fuera de `__pycache__` a la raíz de `estructuras/`, y se configuró `.gitignore`.
+* **Motivo:** Corregir errores de clonación y desincronización de Git en Windows, garantizar la resolución limpia de importaciones de paquetes locales y evitar el seguimiento de archivos compilados `.pyc`.
+
 ---
+
+## 🛠️ Guía de Instalación y Ejecución
+
+### 1. Clonar el Repositorio
+```bash
+git clone [https://github.com/titoj3448-ops/proyecto-1.git](https://github.com/titoj3448-ops/proyecto-1.git)
+cd proyecto-1

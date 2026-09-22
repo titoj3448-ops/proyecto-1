@@ -71,21 +71,17 @@ class ArbolBinarioBusqueda:
         if nodo is None:
             return
 
-        # Si la clave es mayor o igual, exploramos la izquierda
         if nodo.clave >= prefijo:
             self._buscar_prefijo_rec(nodo.izquierda, prefijo, resultado)
 
-        # Si coincide con el prefijo, agregamos los datos
         if nodo.clave.startswith(prefijo):
             if isinstance(nodo.valor, list):
                 resultado.extend(nodo.valor)
             else:
                 resultado.append(nodo.valor)
 
-            # Si coincide, también puede haber más coincidencias a la derecha
             self._buscar_prefijo_rec(nodo.derecha, prefijo, resultado)
         elif nodo.clave < prefijo:
-            # Si es menor al prefijo, buscamos hacia la derecha
             self._buscar_prefijo_rec(nodo.derecha, prefijo, resultado)
 
     def inorder(self, datos=False):
@@ -115,3 +111,6 @@ class ArbolBinarioBusqueda:
 
     def __contains__(self, clave):
         return self.buscar_nodo(clave) is not None
+
+# Alias para mantener compatibilidad con las pruebas
+ArbolBST = ArbolBinarioBusqueda

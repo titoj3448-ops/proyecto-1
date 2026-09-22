@@ -84,3 +84,28 @@ Opción: _
 | + filtrar_por_genero(genero: str): list[Cancion]      |
 | + obtener_top_puntuadas(limite: int): list[Cancion]   |
 +-------------------------------------------------------+
+
+# Análisis TP3 — Árbol Binario de Búsqueda (SoundNode)
+
+## 1. Implementación realizada
+Se implementó la estructura de datos **Árbol Binario de Búsqueda (BST)** en el módulo `estructuras/arbol_binario.py` para optimizar las consultas del catálogo de canciones.
+
+## 2. Clave de ordenamiento y criterio
+Las canciones se insertan utilizando como clave el **título de la canción normalizado en minúsculas** (`c.titulo.lower()`). Esto garantiza búsquedas rápidas e insensibles a mayúsculas/minúsculas.
+
+## 3. Resultado de la prueba ejecutable
+Salida obtenida al ejecutar `py algoritmos/probar_bst.py`:
+
+```text
+Altura del árbol: 4
+
+--- inorder (ordenado alfabéticamente) ---
+  'Arrival' - Max Richter (Ambient) ⭐8.4
+  'Blade Runner' - Vangelis (Electronic) ⭐8.5
+  'Inception' - Hans Zimmer (Soundtrack) ⭐8.8
+  'Matrix' - OST (Soundtrack) ⭐9.0
+  'Titanic' - Celine Dion (Pop) ⭐7.8
+
+--- búsquedas ---
+Buscar 'matrix': 'Matrix' - OST (Soundtrack) ⭐9.0
+Buscar 'zzz': None

@@ -2,16 +2,16 @@ import json
 import sys
 import os
 
-# Agrega la carpeta raíz al path de Python para encontrar 'modelos'
+# Agregamos la carpeta raíz al path para importar modelos y estructuras
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(BASE_DIR)
+if BASE_DIR not in sys.path:
+    sys.path.append(BASE_DIR)
 
 from modelos.cancion import Cancion
 from estructuras.arbol_binario import ArbolBinarioBusqueda
 
 
 def normalizar(texto):
-    """Clave canónica: sin espacios sobrantes y en minúsculas."""
     return texto.strip().lower()
 
 
@@ -23,27 +23,25 @@ def cargar_datos():
     canciones = []
     for d in datos:
         duracion = d.get("duracion", "N/A")
-        puntuacion = d.get("puntuacion", d.get("rating", 0.0))
+        puntuacion = d.get("puntuacion", 0.0)
         canciones.append(Cancion(d["titulo"], d["artista"], d["genero"], duracion, puntuacion))
     return canciones
 
 
 def construir_indices(canciones):
-    """Arma los dos BST una sola vez, al iniciar la aplicación.
-
-    Se usa insertar_multiple porque puede haber títulos repetidos y, sobre todo,
-    varios temas del mismo artista: cada nodo guarda una lista de canciones.
-    """
+    # Armamos los árboles binarios para títulos y artistas
     indice_titulo = ArbolBinarioBusqueda()
     indice_artista = ArbolBinarioBusqueda()
+
     for c in canciones:
         indice_titulo.insertar_multiple(normalizar(c.titulo), c)
         indice_artista.insertar_multiple(normalizar(c.artista), c)
+
     return indice_titulo, indice_artista
 
 
 def mostrar_menu():
-    print("=" * 40)
+    print("\n" + "=" * 40)
     print("      🎵 SOUNDNODE — CATÁLOGO MUSICAL 🎵")
     print("=" * 40)
     print("1. Buscar canción por título")
@@ -55,23 +53,21 @@ def mostrar_menu():
 
 
 def buscar_titulo(indice_titulo):
-    """Búsqueda por título usando el árbol binario (no recorre la lista)."""
     texto = normalizar(input("Título de la canción a buscar: "))
     if not texto:
         print("No ingresaste ningún título.")
         return
 
-    # 1) coincidencia exacta: baja por el árbol, O(log n)
+    # Busco primero coincidencia exacta en el árbol
     exacto = indice_titulo.buscar(texto)
     comparaciones = indice_titulo.comparaciones
 
     if exacto:
         for c in exacto:
             print(c)
-        print(f"(encontrado en {comparaciones} comparaciones)")
+        print(f"(Encontrado en {comparaciones} comparaciones)")
     else:
-        # 2) si no hay exacta, se buscan los títulos que empiezan con ese texto,
-        #    podando las ramas del árbol que no pueden contener coincidencias
+        # Si no está exacto, busco por prefijo
         parciales = indice_titulo.buscar_por_prefijo(texto)
         if parciales:
             for c in parciales:
@@ -82,13 +78,15 @@ def buscar_titulo(indice_titulo):
 
 
 def buscar_artista(indice_artista):
-    """Búsqueda por artista usando el árbol binario."""
     texto = normalizar(input("Nombre del artista o banda: "))
     if not texto:
         print("No ingresaste ningún artista.")
         return
 
-    resultados = indice_artista.buscar(texto) or indice_artista.buscar_por_prefijo(texto)
+    resultados = indice_artista.buscar(texto)
+    if not resultados:
+        resultados = indice_artista.buscar_por_prefijo(texto)
+
     if resultados:
         for c in resultados:
             print(c)
@@ -98,7 +96,6 @@ def buscar_artista(indice_artista):
 
 
 def listar(indice_titulo):
-    """El recorrido inorder devuelve el catálogo ordenado por título."""
     print("\n--- CATÁLOGO COMPLETO (ordenado por título) ---")
     i = 1
     for grupo in indice_titulo.inorder(datos=True):
@@ -108,8 +105,9 @@ def listar(indice_titulo):
 
 
 def filtrar(canciones):
-    genero = input("Género musical (ej: Rock, Pop, Grunge, jazz, salsa, relajante, blues): ").lower()
+    genero = input("Género musical (ej: Rock, Pop, Grunge, Jazz): ").lower()
     encontrados = False
+    print()
     for c in canciones:
         if genero in c.genero.lower():
             print(c)
@@ -121,8 +119,7 @@ def filtrar(canciones):
 def main():
     canciones = cargar_datos()
     indice_titulo, indice_artista = construir_indices(canciones)
-    print(f"Catálogo cargado: {len(canciones)} canciones | "
-          f"altura del árbol de títulos: {indice_titulo.altura()}")
+    print(f"Catálogo cargado: {len(canciones)} canciones | Altura del árbol: {indice_titulo.altura()}")
 
     while True:
         mostrar_menu()
@@ -136,7 +133,7 @@ def main():
         elif opcion == "4":
             filtrar(canciones)
         elif opcion == "0":
-            print("¡Gracias por usar SoundNode!")
+            print("\n¡Gracias por usar SoundNode!")
             break
 
 

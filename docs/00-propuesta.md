@@ -4,14 +4,15 @@
 * **Nombre del Proyecto:** SoundNode
 * **Dominio Elegido:** Música (Canciones, Artistas, Géneros y Puntuaciones)
 * **Integrantes:** Gustavo Ojeda, Natanael Contardo Ceriani, Julian Ttito
+
 ---
 
 ## 2. Definición del Dominio y Problema
-* **¿Por qué elegimos este dominio?:**  
+* **¿Por qué elegimos este dominio?:** 
   La música es un dominio interconectado por naturaleza. Nos permite trabajar con datasets reales de canciones y aplicar de manera clara estructuras como listas, árboles de búsqueda, jerarquías de géneros, colas de prioridad (heaps) y grafos para recomendaciones.
-* **Problema que resuelve:**  
+* **Problema que resuelve:** 
   Ayuda a los usuarios a descubrir nueva música relacionada con sus gustos, explorar géneros específicos y encontrar rankings según puntuaciones sin perderse en catálogos extensos.
-* **Usuario Objetivo:**  
+* **Usuario Objetivo:** 
   Ariel, un estudiante melómano de 22 años que escucha bandas de rock y pop, y busca un sistema rápido de consola para descubrir canciones similares y navegar por rankings.
 
 ---
@@ -25,11 +26,11 @@
 
 ---
 
-## 4. Boceto de Interfaz de Consola (Mockup CLI)
+## 4. Boceto de Interfaz de Consola (Mockup CLI) y Diagrama UML
 
 ```text
 ================================================
-          🎵 SOUNDNODE — TERMINAL 🎵
+        🎵 SOUNDNODE — TERMINAL 🎵
 ================================================
 
 1. Buscar canción o artista
@@ -49,9 +50,9 @@ Opción: _
 ║ 🎵 Si te gustó "In the End" (Linkin Park)       ║
 ║ te recomendamos:                                ║
 ║                                                 ║
-║ 1. Numb - Linkin Park                   ⭐ 9.4  ║
-║ 2. Enter Sandman - Metallica            ⭐ 9.6  ║
-║ 3. Seven Nation Army - The White Stripes ⭐ 9.0 ║
+║ 1. Numb - Linkin Park             ⭐ 9.4       ║
+║ 2. Enter Sandman - Metallica      ⭐ 9.6       ║
+║ 3. Seven Nation Army - White Stripes ⭐ 9.0     ║
 ╚═════════════════════════════════════════════════╝
 
 +-------------------------------------------------------+
@@ -71,8 +72,8 @@ Opción: _
 | + duracion(): str                                     |
 | + puntuacion(): float                                 |
 +-------------------------------------------------------+
-                           ^
-                           | contiene (1..*)
+                            ^
+                            | contiene (1..*)
 +-------------------------------------------------------+
 |                       Catalogo                        |
 +-------------------------------------------------------+
@@ -84,28 +85,3 @@ Opción: _
 | + filtrar_por_genero(genero: str): list[Cancion]      |
 | + obtener_top_puntuadas(limite: int): list[Cancion]   |
 +-------------------------------------------------------+
-
-# Análisis TP3 — Árbol Binario de Búsqueda (SoundNode)
-
-## 1. Implementación realizada
-Se implementó la estructura de datos **Árbol Binario de Búsqueda (BST)** en el módulo `estructuras/arbol_binario.py` para optimizar las consultas del catálogo de canciones.
-
-## 2. Clave de ordenamiento y criterio
-Las canciones se insertan utilizando como clave el **título de la canción normalizado en minúsculas** (`c.titulo.lower()`). Esto garantiza búsquedas rápidas e insensibles a mayúsculas/minúsculas.
-
-## 3. Resultado de la prueba ejecutable
-Salida obtenida al ejecutar `py algoritmos/probar_bst.py`:
-
-```text
-Altura del árbol: 4
-
---- inorder (ordenado alfabéticamente) ---
-  'Arrival' - Max Richter (Ambient) ⭐8.4
-  'Blade Runner' - Vangelis (Electronic) ⭐8.5
-  'Inception' - Hans Zimmer (Soundtrack) ⭐8.8
-  'Matrix' - OST (Soundtrack) ⭐9.0
-  'Titanic' - Celine Dion (Pop) ⭐7.8
-
---- búsquedas ---
-Buscar 'matrix': 'Matrix' - OST (Soundtrack) ⭐9.0
-Buscar 'zzz': None

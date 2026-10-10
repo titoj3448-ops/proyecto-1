@@ -1,143 +1,125 @@
 class NodoAVL:
-    """Nodo del AVL: igual que el Nodo del BST pero guarda su altura."""
+    __slots__ = ("clave", "valor", "izquierda", "derecha", "altura")
 
     def __init__(self, clave, valor=None):
         self.clave = clave
         self.valor = clave if valor is None else valor
         self.izquierda = None
         self.derecha = None
-        self.altura = 1  # un nodo hoja tiene altura 1
+        self.altura = 1
 
     def __repr__(self):
         return f"NodoAVL({self.clave!r}, h={self.altura})"
 
 
-class AVL:
-    """
-    Árbol binario de búsqueda auto-balanceado.
-
-    Mantiene la misma interfaz que ArbolBinarioBusqueda (insertar, buscar,
-    insertar_multiple, buscar_por_prefijo, inorder, altura, comparaciones),
-    de modo que puede reemplazarlo sin tocar el resto del programa.
-    """
-
+class ArbolAVL:
     def __init__(self):
         self.raiz = None
         self._tamanio = 0
         self.comparaciones = 0
-        # Contador de rotaciones por tipo (sirve como evidencia en las pruebas)
         self.rotaciones = {
-            "simple_derecha": 0,       # caso Izquierda-Izquierda
-            "simple_izquierda": 0,     # caso Derecha-Derecha
-            "izquierda_derecha": 0,    # caso Izquierda-Derecha (doble)
-            "derecha_izquierda": 0,    # caso Derecha-Izquierda (doble)
+            "simple_derecha": 0,
+            "simple_izquierda": 0,
+            "doble_izquierda_derecha": 0,
+            "doble_derecha_izquierda": 0,
         }
 
-    # ------------------------------------------------------------------
-    # Utilidades de altura y balance
-    # ------------------------------------------------------------------
-    def _altura_nodo(self, nodo):
+    @staticmethod
+    def _h(nodo):
         return nodo.altura if nodo else 0
 
-    def _actualizar_altura(self, nodo):
-        nodo.altura = 1 + max(self._altura_nodo(nodo.izquierda),
-                              self._altura_nodo(nodo.derecha))
+    def _actualizar(self, nodo):
+        nodo.altura = 1 + max(self._h(nodo.izquierda), self._h(nodo.derecha))
 
-    def _factor_balance(self, nodo):
+    def factor_balance(self, nodo):
         if nodo is None:
             return 0
-        return self._altura_nodo(nodo.izquierda) - self._altura_nodo(nodo.derecha)
+        return self._h(nodo.izquierda) - self._h(nodo.derecha)
 
-    # ------------------------------------------------------------------
-    # Rotaciones
-    # ------------------------------------------------------------------
-    def _rotacion_derecha(self, y):
-        #       y                x
-        #      / \              / \
-        #     x   C    ==>     A   y
-        #    / \                  / \
-        #   A   B                B   C
+    def _girar_derecha(self, y):
         x = y.izquierda
         y.izquierda = x.derecha
         x.derecha = y
-        self._actualizar_altura(y)
-        self._actualizar_altura(x)
+        self._actualizar(y)
+        self._actualizar(x)
         return x
 
-    def _rotacion_izquierda(self, x):
-        #     x                    y
-        #    / \                  / \
-        #   A   y      ==>       x   C
-        #      / \              / \
-        #     B   C            A   B
+    def _girar_izquierda(self, x):
         y = x.derecha
         x.derecha = y.izquierda
         y.izquierda = x
-        self._actualizar_altura(x)
-        self._actualizar_altura(y)
+        self._actualizar(x)
+        self._actualizar(y)
         return y
 
-    def _rotacion_izquierda_derecha(self, nodo):
-        nodo.izquierda = self._rotacion_izquierda(nodo.izquierda)
-        return self._rotacion_derecha(nodo)
+    def rotacion_simple_derecha(self, nodo):
+        self.rotaciones["simple_derecha"] += 1
+        return self._girar_derecha(nodo)
 
-    def _rotacion_derecha_izquierda(self, nodo):
-        nodo.derecha = self._rotacion_derecha(nodo.derecha)
-        return self._rotacion_izquierda(nodo)
+    def rotacion_simple_izquierda(self, nodo):
+        self.rotaciones["simple_izquierda"] += 1
+        return self._girar_izquierda(nodo)
 
-    def _balancear(self, nodo):
-        self._actualizar_altura(nodo)
-        factor = self._factor_balance(nodo)
+    def rotacion_doble_izquierda_derecha(self, nodo):
+        self.rotaciones["doble_izquierda_derecha"] += 1
+        nodo.izquierda = self._girar_izquierda(nodo.izquierda)
+        return self._girar_derecha(nodo)
 
-        if factor > 1:  # pesa de más a la izquierda
-            if self._factor_balance(nodo.izquierda) < 0:
-                self.rotaciones["izquierda_derecha"] += 1
-                return self._rotacion_izquierda_derecha(nodo)
-            self.rotaciones["simple_derecha"] += 1
-            return self._rotacion_derecha(nodo)
+    def rotacion_doble_derecha_izquierda(self, nodo):
+        self.rotaciones["doble_derecha_izquierda"] += 1
+        nodo.derecha = self._girar_derecha(nodo.derecha)
+        return self._girar_izquierda(nodo)
 
-        if factor < -1:  # pesa de más a la derecha
-            if self._factor_balance(nodo.derecha) > 0:
-                self.rotaciones["derecha_izquierda"] += 1
-                return self._rotacion_derecha_izquierda(nodo)
-            self.rotaciones["simple_izquierda"] += 1
-            return self._rotacion_izquierda(nodo)
+    def total_rotaciones(self):
+        return sum(self.rotaciones.values())
+
+    def _rebalancear(self, nodo):
+        self._actualizar(nodo)
+        balance = self.factor_balance(nodo)
+
+        if balance > 1:
+            if self.factor_balance(nodo.izquierda) >= 0:
+                return self.rotacion_simple_derecha(nodo)
+            return self.rotacion_doble_izquierda_derecha(nodo)
+
+        if balance < -1:
+            if self.factor_balance(nodo.derecha) <= 0:
+                return self.rotacion_simple_izquierda(nodo)
+            return self.rotacion_doble_derecha_izquierda(nodo)
 
         return nodo
 
-    # ------------------------------------------------------------------
-    # Inserción
-    # ------------------------------------------------------------------
     def insertar(self, clave, valor=None):
-        self.raiz = self._insertar_rec(self.raiz, clave, valor)
+        self._ultimo = None
+        self.raiz = self._insertar(self.raiz, clave, valor)
+        return self._ultimo
 
-    def _insertar_rec(self, nodo, clave, valor):
+    def _insertar(self, nodo, clave, valor):
         if nodo is None:
+            nuevo = NodoAVL(clave, valor)
             self._tamanio += 1
-            return NodoAVL(clave, valor)
+            self._ultimo = nuevo
+            return nuevo
 
         if clave == nodo.clave:
             nodo.valor = clave if valor is None else valor
+            self._ultimo = nodo
             return nodo
-        if clave < nodo.clave:
-            nodo.izquierda = self._insertar_rec(nodo.izquierda, clave, valor)
-        else:
-            nodo.derecha = self._insertar_rec(nodo.derecha, clave, valor)
 
-        return self._balancear(nodo)
+        if clave < nodo.clave:
+            nodo.izquierda = self._insertar(nodo.izquierda, clave, valor)
+        else:
+            nodo.derecha = self._insertar(nodo.derecha, clave, valor)
+
+        return self._rebalancear(nodo)
 
     def insertar_multiple(self, clave, valor):
-        """Igual que en el BST: varias canciones pueden compartir clave."""
         nodo = self.buscar_nodo(clave)
         if nodo is not None:
             nodo.valor.append(valor)
             return nodo
-        self.insertar(clave, [valor])
-        return self.buscar_nodo(clave)
+        return self.insertar(clave, [valor])
 
-    # ------------------------------------------------------------------
-    # Búsqueda
-    # ------------------------------------------------------------------
     def buscar_nodo(self, clave):
         self.comparaciones = 0
         actual = self.raiz
@@ -154,68 +136,102 @@ class AVL:
 
     def buscar_por_prefijo(self, prefijo):
         resultado = []
-        self._buscar_prefijo_rec(self.raiz, prefijo, resultado)
+        tope = prefijo + "\uffff"
+
+        def _rec(nodo):
+            if nodo is None:
+                return
+            if nodo.clave >= prefijo:
+                _rec(nodo.izquierda)
+            if nodo.clave.startswith(prefijo):
+                if isinstance(nodo.valor, list):
+                    resultado.extend(nodo.valor)
+                else:
+                    resultado.append(nodo.valor)
+            if nodo.clave <= tope:
+                _rec(nodo.derecha)
+
+        _rec(self.raiz)
         return resultado
 
-    def _buscar_prefijo_rec(self, nodo, prefijo, resultado):
-        if nodo is None:
-            return
-        if nodo.clave >= prefijo:
-            self._buscar_prefijo_rec(nodo.izquierda, prefijo, resultado)
-        if nodo.clave.startswith(prefijo):
-            if isinstance(nodo.valor, list):
-                resultado.extend(nodo.valor)
-            else:
-                resultado.append(nodo.valor)
-            self._buscar_prefijo_rec(nodo.derecha, prefijo, resultado)
-        elif nodo.clave < prefijo:
-            self._buscar_prefijo_rec(nodo.derecha, prefijo, resultado)
-
-    # ------------------------------------------------------------------
-    # Recorridos y propiedades
-    # ------------------------------------------------------------------
     def inorder(self, datos=False):
         resultado = []
-        self._inorder_rec(self.raiz, datos, resultado)
-        return resultado
 
-    def _inorder_rec(self, nodo, datos, resultado):
-        if nodo is not None:
-            self._inorder_rec(nodo.izquierda, datos, resultado)
+        def _rec(nodo):
+            if nodo is None:
+                return
+            _rec(nodo.izquierda)
             resultado.append(nodo.valor if datos else nodo.clave)
-            self._inorder_rec(nodo.derecha, datos, resultado)
+            _rec(nodo.derecha)
 
-    def preorder(self):
-        resultado = []
-        self._preorder_rec(self.raiz, resultado)
+        _rec(self.raiz)
         return resultado
 
-    def _preorder_rec(self, nodo, resultado):
-        if nodo is not None:
-            resultado.append(nodo.clave)
-            self._preorder_rec(nodo.izquierda, resultado)
-            self._preorder_rec(nodo.derecha, resultado)
+    def preorder(self, datos=False):
+        resultado = []
+
+        def _rec(nodo):
+            if nodo is None:
+                return
+            resultado.append(nodo.valor if datos else nodo.clave)
+            _rec(nodo.izquierda)
+            _rec(nodo.derecha)
+
+        _rec(self.raiz)
+        return resultado
+
+    def postorder(self, datos=False):
+        resultado = []
+
+        def _rec(nodo):
+            if nodo is None:
+                return
+            _rec(nodo.izquierda)
+            _rec(nodo.derecha)
+            resultado.append(nodo.valor if datos else nodo.clave)
+
+        _rec(self.raiz)
+        return resultado
 
     def altura(self):
-        # O(1): la altura ya está guardada en la raíz
-        return self._altura_nodo(self.raiz)
-
-    def esta_balanceado(self):
-        """Verifica que TODOS los nodos tengan factor de balance en [-1, 1]."""
-        return self._balanceado_rec(self.raiz)
-
-    def _balanceado_rec(self, nodo):
-        if nodo is None:
-            return True
-        if abs(self._factor_balance(nodo)) > 1:
-            return False
-        return self._balanceado_rec(nodo.izquierda) and self._balanceado_rec(nodo.derecha)
+        return self._h(self.raiz)
 
     def esta_vacio(self):
         return self.raiz is None
+
+    def es_avl_valido(self):
+        def _rec(nodo):
+            if nodo is None:
+                return True, 0, None, None
+            ok_i, h_i, min_i, max_i = _rec(nodo.izquierda)
+            ok_d, h_d, min_d, max_d = _rec(nodo.derecha)
+            if not (ok_i and ok_d):
+                return False, 0, None, None
+            if max_i is not None and not max_i < nodo.clave:
+                return False, 0, None, None
+            if min_d is not None and not nodo.clave < min_d:
+                return False, 0, None, None
+            if abs(h_i - h_d) > 1:
+                return False, 0, None, None
+            h = 1 + max(h_i, h_d)
+            if nodo.altura != h:
+                return False, 0, None, None
+            minimo = min_i if min_i is not None else nodo.clave
+            maximo = max_d if max_d is not None else nodo.clave
+            return True, h, minimo, maximo
+
+        return _rec(self.raiz)[0]
 
     def __len__(self):
         return self._tamanio
 
     def __contains__(self, clave):
         return self.buscar_nodo(clave) is not None
+
+
+def construir_avl_desde(elementos, clave_func=None):
+    arbol = ArbolAVL()
+    for elemento in elementos:
+        clave = elemento if clave_func is None else clave_func(elemento)
+        arbol.insertar(clave, elemento)
+    return arbol

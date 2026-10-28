@@ -1,0 +1,346 @@
+Catálogo cargado: 33 canciones | altura AVL de títulos: 6 | rebalanceos por rotación: 14
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: Título de la canción a buscar: 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+Búsqueda exacta: 3 nodos visitados.
+Fin de resultados.
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: Nombre del artista o banda: 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+Búsqueda exacta: 3 nodos visitados.
+Fin de resultados.
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: 
+--- CATÁLOGO COMPLETO (ordenado por título) ---
+1. 'Round Midnight' - Thelonious Monk (Jazz) [5:59] ⭐9.3
+2. 'Aguanile' - Héctor Lavoe (Salsa) [5:56] ⭐9.2
+3. 'Billie Jean' - Michael Jackson (Pop) [4:54] ⭐9.7
+4. 'Blinding Lights' - The Weeknd (Synth-pop) [3:20] ⭐9.5
+5. 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+6. 'Buffalo Soldier' - Bob Marley (Relajante) [4:17] ⭐9.1
+7. 'Crimen' - Gustavo Cerati (Rock argentino) [4:26] ⭐9.4
+8. 'Crossroads' - Cream (Blues) [4:15] ⭐9.2
+9. 'De Música Ligera' - Soda Stereo (Rock argentino) [5:01] ⭐10.0
+10. 'Feeling Good' - Nina Simone (Jazz) [2:56] ⭐9.5
+11. 'Flaca' - Andrés Calamaro (Rock argentino) [4:36] ⭐9.0
+12. 'Fly Me to the Moon' - Frank Sinatra (Jazz) [2:28] ⭐9.4
+13. 'I'd Rather Go Blind' - Etta James (Blues) [3:24] ⭐9.4
+14. 'Is This Love' - Bob Marley (Relajante) [3:52] ⭐9.2
+15. 'Ji ji ji' - Patricio Rey y sus Redonditos de Ricota (Rock argentino) [5:35] ⭐9.5
+16. 'La Vida Es Un Carnaval' - Celia Cruz (Salsa) [5:03] ⭐9.4
+17. 'Master of Puppets' - Rocklica (Rock) [8:35] ⭐9.8
+18. 'No Woman No Cry' - Bob Marley (Relajante) [3:46] ⭐9.6
+19. 'Oye Como Va' - Tito Puente (Salsa) [3:38] ⭐9.1
+20. 'Painkiller' - Judas Priest (Rock) [6:05] ⭐9.2
+21. 'Paranoid' - Black Sabbath (Rock) [2:48] ⭐9.5
+22. 'Persiana Americana' - Soda Stereo (Rock argentino) [5:29] ⭐9.7
+23. 'Pride and Joy' - Stevie Ray Vaughan (Blues) [3:39] ⭐9.3
+24. 'Red Red Wine' - UB40 (Relajante) [3:52] ⭐8.9
+25. 'Shape of You' - Ed Sheeran (Pop) [3:53] ⭐9.0
+26. 'Smells Like Teen Spirit' - Nirvana (Grunge) [5:01] ⭐9.8
+27. 'So What' - Miles Davis (Jazz) [9:22] ⭐9.7
+28. 'Sweet Home Chicago' - Buddy Guy (Blues) [4:48] ⭐9.0
+29. 'Take Five' - Dave Brubeck (Jazz) [5:24] ⭐9.6
+30. 'The Thrill Is Gone' - B.B. King (Blues) [5:25] ⭐9.5
+31. 'The Trooper' - Iron Maiden (Rock) [4:12] ⭐9.4
+32. 'Three Little Birds' - Bob Marley (Relajante) [3:00] ⭐9.4
+33. 'Vivir Mi Vida' - Marc Anthony (Salsa) [4:00] ⭐9.3
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: Género musical (ejemplo: Rock, Pop, Jazz, Salsa): 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+'De Música Ligera' - Soda Stereo (Rock argentino) [5:01] ⭐10.0
+'Persiana Americana' - Soda Stereo (Rock argentino) [5:29] ⭐9.7
+'Ji ji ji' - Patricio Rey y sus Redonditos de Ricota (Rock argentino) [5:35] ⭐9.5
+'Crimen' - Gustavo Cerati (Rock argentino) [4:26] ⭐9.4
+'Flaca' - Andrés Calamaro (Rock argentino) [4:36] ⭐9.0
+'Master of Puppets' - Rocklica (Rock) [8:35] ⭐9.8
+'Paranoid' - Black Sabbath (Rock) [2:48] ⭐9.5
+'The Trooper' - Iron Maiden (Rock) [4:12] ⭐9.4
+'Painkiller' - Judas Priest (Rock) [6:05] ⭐9.2
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: 
+Catálogo
+  1. Pop y Electrónica (3 canciones)
+  2. Rock y Derivados (11 canciones)
+  3. Jazz y Blues (10 canciones)
+  4. Caribe y Relajante (9 canciones)
+  [número] entrar | [v] volver | [t] ver árbol de esta rama | [b] buscar nodo | [0] salir
+Explorar: Catálogo
+    └─ Pop y Electrónica
+        └─ Synth-pop
+            └─ The Weeknd
+                └─ Blinding Lights
+        └─ Pop
+            └─ Ed Sheeran
+                └─ Shape of You
+            └─ Michael Jackson
+                └─ Billie Jean
+    └─ Rock y Derivados
+        └─ Grunge
+            └─ Nirvana
+                └─ Smells Like Teen Spirit
+        └─ Rock
+            └─ Queen
+                └─ Bohemian Rhapsody
+            └─ Rocklica
+                └─ Master of Puppets
+            └─ Black Sabbath
+                └─ Paranoid
+            └─ Iron Maiden
+                └─ The Trooper
+            └─ Judas Priest
+                └─ Painkiller
+        └─ Rock argentino
+            └─ Soda Stereo
+                └─ De Música Ligera
+                └─ Persiana Americana
+            └─ Patricio Rey y sus Redonditos de Ricota
+                └─ Ji ji ji
+            └─ Gustavo Cerati
+                └─ Crimen
+            └─ Andrés Calamaro
+                └─ Flaca
+    └─ Jazz y Blues
+        └─ Jazz
+            └─ Dave Brubeck
+                └─ Take Five
+            └─ Nina Simone
+                └─ Feeling Good
+            └─ Frank Sinatra
+                └─ Fly Me to the Moon
+            └─ Miles Davis
+                └─ So What
+            └─ Thelonious Monk
+                └─ 'Round Midnight
+        └─ Blues
+            └─ B.B. King
+                └─ The Thrill Is Gone
+            └─ Cream
+                └─ Crossroads
+            └─ Stevie Ray Vaughan
+                └─ Pride and Joy
+            └─ Etta James
+                └─ I'd Rather Go Blind
+            └─ Buddy Guy
+                └─ Sweet Home Chicago
+    └─ Caribe y Relajante
+        └─ Relajante
+            └─ Bob Marley
+                └─ No Woman No Cry
+                └─ Three Little Birds
+                └─ Is This Love
+                └─ Buffalo Soldier
+            └─ UB40
+                └─ Red Red Wine
+        └─ Salsa
+            └─ Marc Anthony
+                └─ Vivir Mi Vida
+            └─ Celia Cruz
+                └─ La Vida Es Un Carnaval
+            └─ Tito Puente
+                └─ Oye Como Va
+            └─ Héctor Lavoe
+                └─ Aguanile
+
+Catálogo
+  1. Pop y Electrónica (3 canciones)
+  2. Rock y Derivados (11 canciones)
+  3. Jazz y Blues (10 canciones)
+  4. Caribe y Relajante (9 canciones)
+  [número] entrar | [v] volver | [t] ver árbol de esta rama | [b] buscar nodo | [0] salir
+Explorar: 
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: ¿Cuántas canciones querés ver?: 1. 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+2. 'De Música Ligera' - Soda Stereo (Rock argentino) [5:01] ⭐10.0
+3. 'Smells Like Teen Spirit' - Nirvana (Grunge) [5:01] ⭐9.8
+4. 'Master of Puppets' - Rocklica (Rock) [8:35] ⭐9.8
+5. 'Billie Jean' - Michael Jackson (Pop) [4:54] ⭐9.7
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: ¿Cuántas canciones querés ver?: Ingresá un entero mayor que cero.
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: Título o parte del título (Enter para cancelar): 1. 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+Elegí el número de canción (0 cancela): Relacionadas por genero: 4 canciones.
+'Master of Puppets' - Rocklica (Rock) [8:35] ⭐9.8
+'Paranoid' - Black Sabbath (Rock) [2:48] ⭐9.5
+'The Trooper' - Iron Maiden (Rock) [4:12] ⭐9.4
+'Painkiller' - Judas Priest (Rock) [6:05] ⭐9.2
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: Título o parte del título (Enter para cancelar): 1. 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+Elegí el número de canción (0 cancela): Relacionadas por artista: 0 canciones.
+Esta canción no tiene vecinas según este criterio.
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: Título o parte del título (Enter para cancelar): 1. 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+Elegí el número de canción (0 cancela): 
+Grafo por genero: 33 vértices, 57 aristas
+Vecinos de la canción elegida: 4
+BFS: 5 canciones alcanzables (incluye el inicio)
+  1. 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+  2. 'Master of Puppets' - Rocklica (Rock) [8:35] ⭐9.8
+  3. 'Paranoid' - Black Sabbath (Rock) [2:48] ⭐9.5
+  4. 'The Trooper' - Iron Maiden (Rock) [4:12] ⭐9.4
+  5. 'Painkiller' - Judas Priest (Rock) [6:05] ⭐9.2
+DFS: 5 canciones alcanzables (incluye el inicio)
+  1. 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+  2. 'Master of Puppets' - Rocklica (Rock) [8:35] ⭐9.8
+  3. 'Paranoid' - Black Sabbath (Rock) [2:48] ⭐9.5
+  4. 'The Trooper' - Iron Maiden (Rock) [4:12] ⭐9.4
+  5. 'Painkiller' - Judas Priest (Rock) [6:05] ⭐9.2
+
+Grafo por artista: 33 vértices, 7 aristas
+Vecinos de la canción elegida: 0
+BFS: 1 canciones alcanzables (incluye el inicio)
+  1. 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+DFS: 1 canciones alcanzables (incluye el inicio)
+  1. 'Bohemian Rhapsody' - Queen (Rock) [5:55] ⭐10.0
+
+================================================
+       SOUNDNODE — CATÁLOGO MUSICAL
+================================================
+1. Buscar canción por título (AVL)
+2. Buscar canción por artista (AVL)
+3. Ver todo el catálogo de canciones
+4. Filtrar por género musical
+5. Explorar categorías (Árbol General)
+6. Top de canciones por puntuación (Heap)
+7. Recomendaciones por género (Grafo)
+8. Recomendaciones por artista (Grafo)
+9. Comparar grafos y recorridos BFS / DFS
+0. Salir
+------------------------------------------------
+Opción: ¡Gracias por usar SoundNode!

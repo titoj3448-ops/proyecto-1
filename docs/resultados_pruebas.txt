@@ -1,0 +1,29 @@
+Validación del 27/10/2026 — entorno Linux, Python 3.12.
+
+python3 algoritmos/probar_entrega.py
+9 pruebas ejecutadas. Resultado: OK.
+
+python3 algoritmos/probar_avl.py
+OK: cuatro tipos de rotación y recorridos.
+OK: búsquedas, árbol vacío y claves repetidas.
+OK: árbol general, búsquedas y recorridos.
+
+Datos insertados en orden creciente; altura medida en nodos.
+N       Altura BST  Altura AVL  Comp. BST  Comp. AVL  BST us   AVL us
+10      10          4           10         4         0.698    0.311
+100     100         7           100        7         5.602    0.398
+500     500         9           500        9         28.832   0.517
+10000   10000       14          10000      14        640.329  0.855
+Todas las verificaciones del script pasaron.
+Los tiempos corresponden a este entorno y varían entre ejecuciones.
+
+Sesión automatizada de main.py:
+OK: opciones 1 a 9, rechazo de entrada no numérica del ranking y salida.
+OK: ui/terminal.py y algoritmo/main.py cargan el menú y permiten salir.
+
+Catálogo: 33 canciones.
+Grafo por género: 33 vértices, 57 aristas.
+Grafo por artista: 33 vértices, 7 aristas.
+
+python3 algoritmos/probar_bst.py
+Ejecutado sin errores; búsqueda existente y ausente correctas.

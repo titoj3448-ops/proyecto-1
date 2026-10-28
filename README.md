@@ -1,27 +1,109 @@
-# SoundNode
+# SoundNode — historial completo del proyecto
 
-Sistema de recomendaciones de música en terminal.
+Sistema de recomendaciones de música por terminal.  
+**Materia:** Estructuras de Datos — Tecnicatura en Programación, UNaB.  
+**Profesor:** Ángel Leonardo Bianco.  
+**Integrantes:** Gustavo Abel Ojeda, Natanael Contardo Ceriani y Julián Tito.
 
-## Integrantes
+## Cómo ejecutar la versión actual
 
-* Gustavo Abel Ojeda
-* Natanael Contardo Ceriani
-* Julian Ttito
+Extraer el proyecto, abrir su carpeta en Visual Studio Code y ejecutar:
 
-## Cómo ejecutar
+```bash
+py main.py
+```
 
-1. Clonar el repositorio
-2. Ejecutar: `py ui/terminal.py`
-3. Probar BST: `py algoritmos/probar_bst.py`
-4. Benchmark tiempos: `py algoritmos/comparar_busquedas.py`
+En Linux/macOS: `python3 main.py`. Requiere Python 3.9 o superior, sin paquetes
+externos. Los accesos `py algoritmo/main.py` y `py ui/terminal.py` también abren
+el menú actualizado.
 
-## Estado
+## Recorrido desde el inicio
 
-TP0: Completado | TP1: Completado | TP2: Completado | TP3: Completado
+| Etapa | Trabajo documentado |
+|---|---|
+| Propuesta inicial | Dominio musical, problema, usuario objetivo y funciones propuestas |
+| TP0 + TP1 | Carpetas, persistencia JSON, modelo Cancion, propiedades e interfaz de consola |
+| Búsquedas y comparación | Búsqueda secuencial, búsqueda binaria y comparación de tiempos con BST |
+| TP3 | Árbol binario de búsqueda, pruebas y análisis de complejidad |
+| TP4 + TP5 | AVL, rotaciones, comparación con BST y árbol general de categorías |
+| Preparación posterior | Recorridos y altura iterativa del BST, pruebas de AVL y correcciones de nombres/imports |
+| Etapa actual | Max-heap, grafos por género y artista, BFS/DFS, integración y documentación |
 
-# 📝 Historial de Cambios y Decisiones de Arquitectura — SoundNode
+La propuesta del inicio se conserva en [docs/00-propuesta.md](docs/00-propuesta.md).
+El README original marcaba TP0, TP1, TP2 y TP3 como completados y documentaba
+las búsquedas y comparaciones, pero no tenía un apartado separado de TP2.
+Aquí se conserva ese trabajo sin inventar una entrega o una fecha adicional.
 
-Este documento registra la evolución del proyecto, los cambios de estructura realizados y la justificación técnica de cada decisión tomada para facilitar el mantenimiento futuro del código.
+## Cómo leer este historial
+
+Los siguientes apartados de las etapas anteriores recuperan el contenido del
+README original y se presentan desde el inicio hacia las etapas más recientes.
+Conservan decisiones, ejemplos y resultados registrados en ese momento.
+**Algunos nombres de métodos, scripts, diagramas y resultados corresponden a
+versiones anteriores; no describen necesariamente la implementación actual.**
+Las aclaraciones de evolución y la sección final explican qué se entrega hoy.
+
+En particular:
+
+- La jerarquía actual es Catálogo → categoría → género → artista → canción;
+  el esquema de géneros mostrado en el análisis histórico es un diseño anterior.
+- La clase actual de AVL es `ArbolAVL` y su verificación es `es_avl_valido()`.
+- Las pruebas actuales de rotaciones, árbol general y comparación BST/AVL están
+  reunidas en `algoritmos/probar_avl.py`; algunos scripts citados históricamente
+  no están como archivos separados en esta entrega.
+- Las cifras históricas se conservan como registro del README previo, sin
+  volver a atribuirles una verificación nueva. Las mediciones de esta entrega
+  están identificadas en `docs/resultados_pruebas.txt`.
+- La búsqueda en un BST común es O(log n) cuando su altura es logarítmica;
+  puede degradarse a O(n). El AVL mantiene altura O(log n).
+
+---
+
+## 📅 Versión 1.0.0 — Entrega 1 (TP0 + TP1) — Septiembre 2026
+
+### 1. Reestructuración de Directorios
+* **Cambio:** Se organizó el código suelto de la raíz en módulos específicos (`modelos/`, `datos/`, `ui/`, `docs/`).
+* **Motivo:** Cumplir con la arquitectura por capas solicitada por la cátedra y separar la interfaz de usuario de la lógica de negocio y los datos.
+
+### 2. Migración a Persistencia JSON
+* **Cambio:** Se reemplazó la importación estática desde `base_de_datos.py` por la lectura dinámica de `datos/canciones.json`.
+* **Motivo:** Permitir que la base de datos de canciones crezca de forma independiente al código ejecutable de Python, facilitando la adición de nuevo contenido sin tocar la lógica del programa.
+
+### 3. Encapsulamiento del Modelo Cancion
+* **Cambio:** Se redefinieron los atributos de la clase `Cancion` en `modelos/cancion.py` utilizando prefijos `_` y decoradores `@property`.
+* **Motivo:** Proteger el estado interno de los objetos y asegurar que las lecturas de atributos como `titulo`, `artista`, `duracion` y `puntuacion` se hagan de forma controlada.
+
+### 4. Modularización de la Interfaz CLI
+* **Cambio:** Se implementó `ui/terminal.py` para gestionar el menú interactivo, incorporando búsquedas independientes por título y por artista, filtrado por género y listado general.
+* **Motivo:** Proveer una experiencia de usuario contextualizada al dominio musical y dejar aislada la entrada/salida de datos para futuras adaptaciones (ej: interfaz gráfica o web).
+
+### 5. Corrección de Compatibilidad de Sistema de Archivos y Módulos (Windows)
+* **Cambio:** Se renombraron los directorios `algoritmo` y `estructuras` (eliminando espacios al final de los nombres de carpeta), se reubicó `arbol_binario.py` fuera de `__pycache__` a la raíz de `estructuras/`, y se configuró `.gitignore`.
+* **Motivo:** Corregir errores de clonación y desincronización de Git en Windows, garantizar la resolución limpia de importaciones de paquetes locales y evitar el seguimiento de archivos compilados `.pyc`.
+
+---
+
+## 📅 Versión 1.2.0 — Entrega 3 (TP3 - Árbol Binario de Búsqueda) — Septiembre 2026
+
+### 1. Implementación de la Estructura Árbol BST
+* **Cambio:** Se crearon las clases `NodoBST` y `ArbolBST` en `estructuras/arbol_binario.py` implementando inserción ordenada, búsqueda por clave y recorridos jerárquicos (`inorder`, `preorder`, `postorder`).
+* **Motivo:** Optimizar las búsquedas en el catálogo pasando de una complejidad lineal O(n) a una complejidad logarítmica O(log n).
+
+### 2. Creación del Módulo de Pruebas Unitarias del BST
+* **Cambio:** Se desarrolló el script ejecutable `algoritmos/probar_bst.py` que instancia el árbol, inserta canciones del catálogo, calcula la altura y prueba búsquedas.
+* **Motivo:** Verificar el correcto funcionamiento lógico de la estructura antes de integrarla al flujo general y facilitar la evaluación por parte del docente.
+
+### 3. Medición y Comparación de Tiempos Reales (Benchmarking)
+* **Cambio:** Se implementó el benchmark en `algoritmos/comparar_busquedas.py` que evalúa el rendimiento de tres algoritmos de búsqueda (Secuencial, Binaria y Árbol BST) sobre volúmenes escalables de datos (100 a 100.000 elementos) midiendo tiempos en ms.
+* **Motivo:** Comparar de forma empírica y real el tiempo de ejecución de cada algoritmo en la computadora de desarrollo.
+
+### 4. Organización del Módulo de Algoritmos
+* **Cambio:** Se movieron los scripts de pruebas dentro de `algoritmos/` y se configuró la adición dinámica del directorio raíz al `sys.path`.
+* **Motivo:** Mantener la separación de responsabilidades y resolver errores de importación (`ModuleNotFoundError`) al ejecutar scripts desde subcarpetas en Windows.
+
+### 5. Documentación de Análisis de Complejidad
+* **Cambio:** Se creó el informe técnico en `docs/07-analisis-tp3.md` con la tabla de tiempos reales de ejecución, capturas/salidas de terminal y el análisis de complejidad teórica de cada algoritmo.
+* **Motivo:** Documentar las conclusiones requeridas en la consigna de la Entrega 3.
 
 ---
 
@@ -423,48 +505,91 @@ py algoritmos/comparar_bst_avl.py
 py algoritmo/main.py
 ```
 
-## 📅 Versión 1.2.0 — Entrega 3 (TP3 - Árbol Binario de Búsqueda) — Septiembre 2026
+---
 
-### 1. Implementación de la Estructura Árbol BST
-* **Cambio:** Se crearon las clases `NodoBST` y `ArbolBST` en `estructuras/arbol_binario.py` implementando inserción ordenada, búsqueda por clave y recorridos jerárquicos (`inorder`, `preorder`, `postorder`).
-* **Motivo:** Optimizar las búsquedas en el catálogo pasando de una complejidad lineal O(n) a una complejidad logarítmica O(log n).
+## Preparación posterior — consolidación del código
 
-### 2. Creación del Módulo de Pruebas Unitarias del BST
-* **Cambio:** Se desarrolló el script ejecutable `algoritmos/probar_bst.py` que instancia el árbol, inserta canciones del catálogo, calcula la altura y prueba búsquedas.
-* **Motivo:** Verificar el correcto funcionamiento lógico de la estructura antes de integrarla al flujo general y facilitar la evaluación por parte del docente.
+Antes de incorporar heap y grafos se consolidaron los cambios que ya estaban en
+la copia de trabajo compartida:
 
-### 3. Medición y Comparación de Tiempos Reales (Benchmarking)
-* **Cambio:** Se implementó el benchmark en `algoritmos/comparar_busquedas.py` que evalúa el rendimiento de tres algoritmos de búsqueda (Secuencial, Binaria y Árbol BST) sobre volúmenes escalables de datos (100 a 100.000 elementos) midiendo tiempos en ms.
-* **Motivo:** Comparar de forma empírica y real el tiempo de ejecución de cada algoritmo en la computadora de desarrollo.
+- Nombres de módulos en minúsculas: `avl.py` y `arbol_general.py`.
+- Imports coherentes con esos nombres.
+- Recorridos inorder, preorder y postorder del BST y cálculo iterativo de altura.
+- Pruebas de las cuatro rotaciones AVL, búsquedas y claves repetidas.
+- Comparación BST/AVL con 10, 100, 500 y 10.000 elementos ordenados.
+- Un punto de entrada `main.py` para iniciar el programa.
 
-### 4. Organización del Módulo de Algoritmos
-* **Cambio:** Se movieron los scripts de pruebas dentro de `algoritmos/` y se configuró la adición dinámica del directorio raíz al `sys.path`.
-* **Motivo:** Mantener la separación de responsabilidades y resolver errores de importación (`ModuleNotFoundError`) al ejecutar scripts desde subcarpetas en Windows.
-
-### 5. Documentación de Análisis de Complejidad
-* **Cambio:** Se creó el informe técnico en `docs/07-analisis-tp3.md` con la tabla de tiempos reales de ejecución, capturas/salidas de terminal y el análisis de complejidad teórica de cada algoritmo.
-* **Motivo:** Documentar las conclusiones requeridas en la consigna de la Entrega 3.
+En la entrega actual se unificó además `datos/canciones.json` y se actualizaron
+los accesos de terminal para que todos ejecuten el mismo menú.
 
 ---
 
-## 📅 Versión 1.0.0 — Entrega 1 (TP0 + TP1) — Septiembre 2026
+## Etapa actual — entrega de Heap y Grafos (27/10/2026)
 
-### 1. Reestructuración de Directorios
-* **Cambio:** Se organizó el código suelto de la raíz en módulos específicos (`modelos/`, `datos/`, `ui/`, `docs/`).
-* **Motivo:** Cumplir con la arquitectura por capas solicitada por la cátedra y separar la interfaz de usuario de la lógica de negocio y los datos.
+Sistema musical por terminal para Estructuras de Datos — UNaB.
+Profesor: Ángel Leonardo Bianco.
+Integrantes: Gustavo Abel Ojeda, Natanael Contardo Ceriani y Julián Tito.
 
-### 2. Migración a Persistencia JSON
-* **Cambio:** Se reemplazó la importación estática desde `base_de_datos.py` por la lectura dinámica de `datos/canciones.json`.
-* **Motivo:** Permitir que la base de datos de canciones crezca de forma independiente al código ejecutable de Python, facilitando la adición de nuevo contenido sin tocar la lógica del programa.
+## Ejecutar
 
-### 3. Encapsulamiento del Modelo Cancion
-* **Cambio:** Se redefinieron los atributos de la clase `Cancion` en `modelos/cancion.py` utilizando prefijos `_` y decoradores `@property`.
-* **Motivo:** Proteger el estado interno de los objetos y asegurar que las lecturas de atributos como `titulo`, `artista`, `duracion` y `puntuacion` se hagan de forma controlada.
+Requiere Python 3.9 o superior. No necesita instalar paquetes externos.
+Extraer el ZIP completo, abrir esta carpeta en Visual Studio Code y ejecutar en la terminal:
 
-### 4. Modularización de la Interfaz CLI
-* **Cambio:** Se implementó `ui/terminal.py` para gestionar el menú interactivo, incorporando búsquedas independientes por título y por artista, filtrado por género y listado general.
-* **Motivo:** Proveer una experiencia de usuario contextualizada al dominio musical y dejar aislada la entrada/salida de datos para futuras adaptaciones (ej: interfaz gráfica o web).
+```bash
+py main.py
+```
 
-### 5. Corrección de Compatibilidad de Sistema de Archivos y Módulos (Windows)
-* **Cambio:** Se renombraron los directorios `algoritmo` y `estructuras` (eliminando espacios al final de los nombres de carpeta), se reubicó `arbol_binario.py` fuera de `__pycache__` a la raíz de `estructuras/`, y se configuró `.gitignore`.
-* **Motivo:** Corregir errores de clonación y desincronización de Git en Windows, garantizar la resolución limpia de importaciones de paquetes locales y evitar el seguimiento de archivos compilados `.pyc`.
+En Linux/macOS: `python3 main.py`. También funcionan los accesos anteriores
+`py algoritmo/main.py` y `py ui/terminal.py`, con el mismo menú actualizado.
+
+## Funciones disponibles
+
+| Opción | Función | Estructura |
+|---|---|---|
+| 1 y 2 | Buscar por título o artista, exacto y por prefijo | AVL |
+| 3 | Listar por título | Recorrido inorder del AVL |
+| 4 | Filtrar por texto del género | Recorrido de la lista |
+| 5 | Explorar categoría, género, artista y canción | Árbol general |
+| 6 | Obtener las N canciones mejor puntuadas | Max-heap propio |
+| 7 | Recomendar canciones del mismo género | Grafo por género |
+| 8 | Recomendar canciones del mismo artista | Grafo por artista |
+| 9 | Comparar relaciones y recorrer desde una canción | Grafos, BFS y DFS |
+
+## Pruebas
+
+```bash
+py algoritmos/probar_entrega.py
+py algoritmos/probar_avl.py
+py algoritmos/probar_bst.py
+```
+
+El primer script reúne nueve pruebas de heap, grafos e integración.
+El segundo verifica rotaciones, búsquedas y árbol general, y compara BST con AVL.
+Los tiempos dependen de la computadora. No ejecutar Python con `-O` al verificar
+los scripts anteriores, que usan aserciones.
+
+## Documentación para revisar
+
+- `docs/01-informe-entrega.md`: alcance, decisiones, complejidades y resultados.
+- `docs/02-guia-defensa.md`: explicación breve y demostración paso a paso.
+- `docs/salida_demo.txt`: salida real de una sesión de prueba del menú.
+- `docs/resultados_pruebas.txt`: resultados de validación de esta entrega.
+- `docs/00-propuesta.md`: propuesta inicial; describe también ideas futuras.
+
+Esta entrega se ajusta al alcance explicado al final de la transcripción de clase:
+heap, declaración del grafo y justificación de su uso; también incluye aplicación
+funcional de los grafos y recorridos BFS/DFS. No incluye Dijkstra ni una búsqueda
+de colaboraciones entre artistas, que no están implementadas en esta etapa.
+
+## Archivos principales
+
+- `main.py`: entrada del programa.
+- `algoritmo/main.py`: carga, menú e integración.
+- `modelos/cancion.py`: modelo de canción con propiedades.
+- `datos/canciones.json`: catálogo de 33 canciones.
+- `estructuras/`: BST, AVL, árbol general, heap y grafo.
+- `algoritmos/`: pruebas y comparación de búsquedas.
+
+Se unificó el nombre `canciones.json` y el menú de los tres puntos de entrada.
+El historial de las etapas anteriores se conserva en este README. El informe
+de la entrega describe el código actual y complementa ese registro.

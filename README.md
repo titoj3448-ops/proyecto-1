@@ -30,18 +30,16 @@ el menú actualizado.
 | Etapa actual | Max-heap, grafos por género y artista, BFS/DFS, integración y documentación |
 
 La propuesta del inicio se conserva en [docs/00-propuesta.md](docs/00-propuesta.md).
-El README original marcaba TP0, TP1, TP2 y TP3 como completados y documentaba
-las búsquedas y comparaciones, pero no tenía un apartado separado de TP2.
-Aquí se conserva ese trabajo sin inventar una entrega o una fecha adicional.
+El trabajo de búsquedas y comparación de algoritmos se documenta junto con
+la incorporación del BST.
 
-## Cómo leer este historial
+## Historial y versión actual
 
-Los siguientes apartados de las etapas anteriores recuperan el contenido del
-README original y se presentan desde el inicio hacia las etapas más recientes.
-Conservan decisiones, ejemplos y resultados registrados en ese momento.
-**Algunos nombres de métodos, scripts, diagramas y resultados corresponden a
-versiones anteriores; no describen necesariamente la implementación actual.**
-Las aclaraciones de evolución y la sección final explican qué se entrega hoy.
+El historial reúne las decisiones, ejemplos y resultados de cada etapa,
+desde la organización inicial hasta la incorporación de heap y grafos.
+Los apartados siguientes registran cómo fue cambiando el proyecto. Por eso,
+algunos nombres de archivos, métodos y resultados pertenecen a versiones
+anteriores. Las funciones actuales se describen al final del README.
 
 En particular:
 
@@ -51,9 +49,9 @@ En particular:
 - Las pruebas actuales de rotaciones, árbol general y comparación BST/AVL están
   reunidas en `algoritmos/probar_avl.py`; algunos scripts citados históricamente
   no están como archivos separados en esta entrega.
-- Las cifras históricas se conservan como registro del README previo, sin
-  volver a atribuirles una verificación nueva. Las mediciones de esta entrega
-  están identificadas en `docs/resultados_pruebas.txt`.
+- Las tablas históricas corresponden a las versiones descritas en cada etapa.
+  Los resultados de la validación del 27/10/2026 están en
+  `docs/resultados_pruebas.txt`.
 - La búsqueda en un BST común es O(log n) cuando su altura es logarítmica;
   puede degradarse a O(n). El AVL mantiene altura O(log n).
 
@@ -110,7 +108,7 @@ En particular:
 # Análisis TP4 + TP5 — AVL y Árbol General
 
 **Proyecto:** SoundNode — Sistema de recomendaciones de música en terminal
-**Integrantes:** Gustavo Abel Ojeda · Natanael Contardo Ceriani · Julian Ttito
+**Integrantes:** Gustavo Abel Ojeda · Natanael Contardo Ceriani · Julián Tito
 
 ---
 
@@ -191,7 +189,7 @@ Evolución según el tamaño (salida completa del script):
 
 **Justificación:** insertar 10 elementos ordenados genera un BST de altura 10 (una cadena), mientras que el AVL tiene altura 4, que es el mínimo posible para 10 nodos. Con 10.000 datos el BST necesita 10.000 comparaciones por búsqueda contra 14 del AVL (unas **660 veces más rápido** en tiempo). La diferencia se nota todavía más al **construir** el índice: 2,2 segundos el BST contra 0,06 s el AVL, porque cada inserción en el BST degenerado recorre toda la cadena (O(n²) en total).
 
-Dos observaciones honestas sobre la tabla:
+En esta comparación también se observa que:
 
 - Con pocos datos (10) el BST inserta más rápido que el AVL (0,02 ms contra 0,05 ms), porque el AVL paga el costo extra de recalcular alturas y rotar. El AVL empieza a convenir recién cuando el árbol crece o cuando no controlamos el orden de carga.
 - Las alturas del AVL (4, 7, 10, 14) coinciden con ⌈log₂(n+1)⌉, o sea, está prácticamente en el mínimo teórico.
@@ -474,15 +472,14 @@ Porque no tiene criterio de ordenamiento: su estructura refleja una jerarquía n
 - El AVL garantiza búsquedas eficientes sin importar el orden de inserción, resolviendo el problema principal del BST. En nuestras mediciones, con 10.000 claves ordenadas la búsqueda pasó de 10.000 comparaciones a 14.
 - El árbol general permite organizar el dominio en una jerarquía de géneros que mejora la experiencia al explorar el catálogo (elegir "Rock" trae también Grunge y Rock argentino).
 - Ambas estructuras se complementan: el AVL resuelve la búsqueda eficiente por clave (título/artista) y el árbol general organiza la navegación por categorías.
-- Ninguna de las dos se usó "por cumplir": el AVL resuelve un problema real y medible (el desbalance del BST con datos ordenados) y el árbol general resuelve otro (jerarquizar géneros, que antes dependía de un filtro por texto frágil).
 
 ---
 
-## 7. Errores o dudas que tuvimos
+## 7. Problemas encontrados y cómo se resolvieron
 
 1. **`RecursionError` en `altura()` del BST con datos ordenados.** Al armar el benchmark con 2.000 o más claves ordenadas, `ArbolBST.altura()` falló por el límite de recursión de Python (~1.000 niveles), porque con datos ordenados el árbol es una cadena. Es otra consecuencia práctica del desbalance. **Solución:** en el script de comparación usamos una función de altura iterativa (por niveles) para el BST. En el AVL no ocurre, porque su altura máxima es ~14 para 10.000 datos y además se guarda en cada nodo.
 2. **`insertar_multiple` en el AVL.** En el BST, `insertar` devolvía el nodo nuevo; en el AVL la inserción es recursiva y los nodos pueden cambiar de lugar al rotar, así que el nodo insertado puede no ser el que devuelve la recursión. **Solución:** `insertar` actualiza la raíz y `insertar_multiple` vuelve a buscar el nodo con `buscar_nodo` después de insertar.
-3. **Mayúsculas en el nombre del JSON.** El archivo está guardado como `datos/Canciones.json` pero el código lo abre como `datos/canciones.json`. En Windows funciona (no distingue mayúsculas), pero en Linux/macOS daría `FileNotFoundError`. Los scripts de prueba nuevos prueban ambos nombres; queda pendiente unificar el nombre del archivo.
+3. **Mayúsculas en el nombre del JSON.** En una versión anterior, el archivo se llamaba `datos/Canciones.json` y el código lo abría como `datos/canciones.json`. En Windows funcionaba porque el sistema no distingue mayúsculas, pero en Linux/macOS podía fallar. Para esta entrega se unificó el nombre como `datos/canciones.json`.
 4. **Rotaciones dobles con datos ordenados.** Al principio esperábamos ver los 4 tipos de rotación con A..J, pero con datos estrictamente crecientes solo aparece la simple izquierda. **Solución:** agregamos la prueba de 3 claves por caso para demostrar las cuatro.
 5. **Imports desde subcarpetas (heredado del TP3).** Ejecutar scripts desde `algoritmos/` daba `ModuleNotFoundError`; los scripts nuevos reutilizan la solución del TP3 (agregar la raíz del proyecto a `sys.path`).
 
@@ -507,10 +504,9 @@ py algoritmo/main.py
 
 ---
 
-## Preparación posterior — consolidación del código
+## Ajustes previos a la entrega de heap y grafos
 
-Antes de incorporar heap y grafos se consolidaron los cambios que ya estaban en
-la copia de trabajo compartida:
+Antes de sumar heap y grafos se hicieron estos ajustes:
 
 - Nombres de módulos en minúsculas: `avl.py` y `arbol_general.py`.
 - Imports coherentes con esos nombres.
@@ -568,18 +564,18 @@ El segundo verifica rotaciones, búsquedas y árbol general, y compara BST con A
 Los tiempos dependen de la computadora. No ejecutar Python con `-O` al verificar
 los scripts anteriores, que usan aserciones.
 
-## Documentación para revisar
+## Documentación
 
 - `docs/01-informe-entrega.md`: alcance, decisiones, complejidades y resultados.
-- `docs/02-guia-defensa.md`: explicación breve y demostración paso a paso.
+- `docs/02-guia-defensa.md`: guía de uso y descripción de las estructuras.
 - `docs/salida_demo.txt`: salida real de una sesión de prueba del menú.
 - `docs/resultados_pruebas.txt`: resultados de validación de esta entrega.
 - `docs/00-propuesta.md`: propuesta inicial; describe también ideas futuras.
 
-Esta entrega se ajusta al alcance explicado al final de la transcripción de clase:
-heap, declaración del grafo y justificación de su uso; también incluye aplicación
-funcional de los grafos y recorridos BFS/DFS. No incluye Dijkstra ni una búsqueda
-de colaboraciones entre artistas, que no están implementadas en esta etapa.
+Esta etapa incorpora un ranking con heap y recomendaciones mediante grafos
+por género y artista. El menú permite comparar ambos grafos con BFS y DFS.
+Dijkstra y la búsqueda de colaboraciones entre artistas quedan fuera del
+alcance implementado.
 
 ## Archivos principales
 

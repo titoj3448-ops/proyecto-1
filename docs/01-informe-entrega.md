@@ -5,20 +5,18 @@
 **Equipo:** Gustavo Abel Ojeda, Natanael Contardo Ceriani y Julián Tito.  
 **Fecha de preparación:** 27 de octubre de 2026.
 
-## 1. Alcance y relación con lo solicitado
+## 1. Alcance
 
-La referencia utilizada es la transcripción de la última clase proporcionada.
-Entre 2:45:56 y 2:46:02 se aclara que los recorridos y caminos mínimos no son
-imprescindibles en esta instancia. Entre 2:49:17 y 2:50:44 se pide heap y grafos,
-con una explicación de dónde y por qué usar el grafo. Entre 2:56:06 y 2:56:26
-se exige la declaración del grafo en código y se propone incorporar BFS/DFS
-en lo posible. La documentación debe explicar su utilización.
+Esta etapa agrega un ranking de canciones con un max-heap y recomendaciones
+mediante dos grafos: uno relaciona canciones del mismo género y el otro,
+canciones del mismo artista. También incorpora los recorridos BFS y DFS
+para comparar las relaciones desde una canción seleccionada.
 
-Esta entrega incluye heap, dos grafos aplicados a recomendaciones, comparación
-de sus relaciones, y BFS/DFS funcionales. No incorpora Dijkstra: la clase indica
-que todavía no es necesario implementarlo (aproximadamente 2:37:41).
-La transcripción no permite establecer una fecha calendario de vencimiento;
-la fecha indicada arriba corresponde a la preparación, no al plazo de entrega.
+El informe describe el uso de las estructuras, su integración con el menú,
+las complejidades y los resultados de las pruebas. Se mantienen los índices
+AVL y el árbol general de las etapas anteriores.
+
+No se implementan Dijkstra ni caminos mínimos en esta versión.
 
 ## 2. Problema y estructuras existentes
 
@@ -166,8 +164,8 @@ El script anterior `algoritmos/probar_avl.py` pasó sus verificaciones de cuatro
 rotaciones, búsquedas, repetidos y árbol general. Comparó BST/AVL con datos
 crecientes para 10, 100, 500 y 10.000 elementos. Con 10.000, las alturas fueron
 10.000 y 14, y las comparaciones de búsqueda fueron 10.000 y 14 respectivamente.
-Los tiempos medidos en este entorno figuran en `resultados_pruebas.txt`; no son
-mediciones realizadas en la computadora del estudiante.
+Los tiempos de referencia están en `resultados_pruebas.txt` y corresponden
+a una ejecución en Linux con Python 3.12. Pueden variar según el equipo.
 
 Se probaron las opciones 1 a 9 del menú con una sesión automatizada, una entrada
 inválida del ranking y los tres puntos de entrada. La salida está en

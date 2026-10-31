@@ -1,47 +1,81 @@
-# Guía breve para explicar SoundNode
+# SoundNode — guía de uso y estructuras
 
-## Demostración sugerida
+## Ejemplo de uso
 
-1. Ejecutar `py main.py` desde la carpeta extraída.
-2. Opción 1: escribir `bohemian rhapsody`. Mostrar la búsqueda AVL.
-3. Opción 5: usar `t` para mostrar la jerarquía y `0` para volver.
-4. Opción 6: pedir `5`. Explicar que se extraen máximos de un heap auxiliar.
-5. Opción 7: escribir `bohemian`, seleccionar `1`. Mostrar otras canciones Rock.
-6. Opción 8: repetir la selección para comparar las del mismo artista.
-7. Opción 9: repetir la selección para mostrar aristas, BFS y DFS.
-8. Ejecutar `py algoritmos/probar_entrega.py` para mostrar las nueve pruebas.
+Desde la carpeta del proyecto, ejecutar `py main.py` (Windows) o
+`python3 main.py` (Linux/macOS).
 
-## Preguntas que conviene poder responder
+| Paso | Entrada | Resultado |
+|---|---|---|
+| Buscar por título | Opción 1, `bohemian rhapsody` | Canción encontrada mediante el índice AVL |
+| Explorar categorías | Opción 5, luego `t` | Jerarquía del catálogo; `0` vuelve al menú |
+| Consultar ranking | Opción 6, cantidad `5` | Las cinco canciones con mayor puntuación |
+| Relacionar por género | Opción 7, `bohemian`, selección `1` | Canciones que comparten el género Rock |
+| Relacionar por artista | Opción 8, misma canción | Canciones del catálogo que comparten el artista |
+| Comparar recorridos | Opción 9, misma canción | Vértices, aristas y recorridos BFS/DFS de ambos grafos |
 
-**¿Para qué usan AVL?** Para localizar títulos y artistas con altura balanceada.
-Los duplicados de una clave se guardan juntos; buscar la clave y mostrar todas
-sus canciones son costos diferentes.
+La búsqueda usada para seleccionar una canción en las opciones 7 a 9 permite
+escribir parte del título. Si aparecen varias coincidencias, se elige una por
+su número. Una canción sin vecinas no produce recomendaciones con ese criterio.
 
-**¿Para qué usan el árbol general?** Para organizar el catálogo en categorías,
-géneros, artistas y canciones, y permitir navegar entre niveles.
+## Función de cada estructura
 
-**¿Para qué usan heap?** Para sacar repetidamente la canción de mayor puntuación.
-La raíz es el máximo. Insertar sube el nuevo elemento; extraer baja el que reemplaza
-la raíz. Los empates respetan el orden del catálogo.
+### AVL: búsqueda por título y artista
 
-**¿Qué es un vértice?** Una canción, identificada por su posición en el catálogo.
-**¿Qué es una arista?** Una relación por género o por artista, según el grafo.
-**¿Por qué no dirigido?** Compartir artista o género es una relación simétrica.
-**¿Por qué sin pesos?** Solo modelamos si existe o no la relación.
+Los índices AVL localizan claves manteniendo una altura balanceada.
+Las canciones que comparten una clave se guardan juntas. Localizar la clave
+cuesta O(log u), donde u es la cantidad de claves únicas; mostrar sus resultados
+agrega un costo proporcional a la cantidad de canciones encontradas.
 
-**¿Por qué dos grafos?** Para comparar qué cambia al elegir distinto criterio.
-Con los datos actuales hay 57 aristas por género y 7 por artista.
+### Árbol general: categorías
 
-**¿Qué diferencia hay entre BFS y DFS?** BFS usa cola y visita por niveles;
-DFS usa pila y profundiza. Ambos evitan volver a visitar un vértice.
-En grupos completos pueden dar el mismo orden; las pruebas incluyen un grafo
-con ramificaciones en el que los órdenes difieren.
+Organiza el catálogo en categorías, géneros, artistas y canciones. Cada nodo
+puede tener varios hijos y una referencia a su padre, lo que permite entrar
+a una categoría y regresar al nivel anterior.
 
-**¿Qué pasa si no hay canciones relacionadas?** La canción permanece como
-vértice aislado; sus vecinos son una lista vacía y el recorrido incluye solo el inicio.
+### Heap: ranking
 
-**¿Qué falta?** Los caminos mínimos no se implementaron en esta etapa.
-Las relaciones son reglas explícitas, no recomendaciones aprendidas del usuario.
+El max-heap mantiene la canción de mayor prioridad en la raíz. La inserción
+reacomoda el elemento hacia arriba y la extracción reacomoda el reemplazo de
+la raíz hacia abajo. Los empates respetan el orden de carga del catálogo.
+El ranking se obtiene extrayendo máximos de un heap auxiliar.
 
-Antes de entregar, abrir el proyecto en tu computadora, recorrer el menú y
-practicar estas respuestas con tus palabras. Esta guía no reemplaza entender el código.
+### Grafos: relaciones entre canciones
+
+Cada vértice identifica una canción por su posición en el catálogo.
+Una arista conecta canciones del mismo género o del mismo artista, según el
+grafo elegido. Son relaciones simétricas, por lo que los grafos son no dirigidos.
+No tienen pesos: cada arista indica únicamente la existencia de una relación.
+
+Con el catálogo incluido, ambos grafos tienen 33 vértices. El de género tiene
+57 aristas y el de artista tiene 7. Una canción sin relaciones permanece como
+vértice aislado.
+
+### BFS y DFS: recorridos
+
+BFS utiliza una cola y visita por niveles. DFS utiliza una pila y profundiza
+antes de continuar por otros vecinos. Ambos registran los vértices visitados
+para evitar repeticiones y recorren solo la componente alcanzable desde el inicio.
+
+Los grupos de igual género o artista son completos: sus canciones están
+conectadas entre sí. Por eso BFS y DFS pueden producir el mismo orden en estos
+datos. Las pruebas también incluyen un grafo con ramificaciones y un ciclo,
+en el que los órdenes son diferentes.
+
+## Verificación
+
+Las pruebas de heap, grafos e integración se ejecutan con:
+
+```bash
+py algoritmos/probar_entrega.py
+```
+
+El script contiene nueve pruebas. Los resultados registrados se encuentran en
+[resultados_pruebas.txt](resultados_pruebas.txt), y una sesión del menú está en
+[salida_demo.txt](salida_demo.txt).
+
+## Alcance
+
+Las recomendaciones se basan en coincidencias de género o artista. No se usa
+aprendizaje automático ni se reproduce audio. Los caminos mínimos no están
+implementados en esta etapa.
